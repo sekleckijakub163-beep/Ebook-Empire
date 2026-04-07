@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Sklep z ebookami</title>
+    <style>
+        :root{--bg:#f5f7fb;--card:#fff;--accent:#0070f3;--muted:#6b7280;--shadow:0 6px 18px rgba(16,24,40,0.08)}
+        body{margin:0;font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;background:var(--bg);color:#0f172a}
+        .container{max-width:1100px;margin:36px auto;padding:24px}
+        header{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px}
+        h1{font-size:1.5rem;margin:0}
+        p.lead{margin:6px 0 0;color:var(--muted)}
+        .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin-top:18px}
+        .card{background:var(--card);border-radius:12px;padding:16px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:12px}
+        .card h2{margin:0;font-size:1.05rem}
+        .meta{font-size:0.9rem;color:var(--muted)}
+        .desc{flex:1;color:#374151;font-size:0.95rem}
+        .price-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+        .price{font-weight:700;color:#111}
+        .buy-btn{
+            appearance:none;border:0;background:linear-gradient(90deg,var(--accent),#0051c7);color:#fff;padding:10px 14px;border-radius:8px;cursor:pointer;font-weight:600;
+            transition:transform .08s ease, box-shadow .08s ease;
+        }
+        .buy-btn:active{transform:translateY(1px)}
+        footer{margin-top:28px;text-align:center;color:var(--muted);font-size:0.9rem}
+        @media (max-width:420px){.container{padding:16px}}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div>
+                <h1>Marketplace ebooków</h1>
+                <p class="lead">Wybierz temat, kliknij "Kup" — zostaniesz przeniesiony na stronę płatności.</p>
+            </div>
+            <div style="text-align:right;color:var(--muted)">Bezpieczne płatności • Natychmiastowy dostęp</div>
+        </header>
+
+        <main class="grid" id="ebooks">
+            <article class="card" data-purchase="https://www.naffy.io/jakub-seklecki/jak-stworzyc-pasywny-dochod-z-e-bookow">
+                <h2>Jak stworzyć pasywny dochód z ebooków.</h2>
+                <div class="meta">Język: PL </div>
+                <p class="desc">Praktyczny opis , jak dorobić sobie na prostych ebookach.</p>
+                <div class="price-row">
+                    <div class="price">15,00 PLN</div>
+                    <button class="buy-btn" aria-label="Jak stworzyć pasywny dochód z ebooków">Kup</button>
+                </div>
+            </article>
+
+        <footer>
+            Kliknięcie "Kup" przeniesie Cię do zewnętrznej strony płatności. Przykładowe linki można podmienić na rzeczywiste.
+        </footer>
+    </div>
+
+    <script>
+        // Obsługa przycisków "Kup" - przekierowuje do adresu z atrybutu data-purchase.
+        document.querySelectorAll('.card').forEach(card => {
+            const btn = card.querySelector('.buy-btn');
+            const url = card.dataset.purchase;
+            if (!btn || !url) return;
+            btn.addEventListener('click', () => {
+                // Krótkie potwierdzenie przed przejściem (możesz usunąć)
+                const proceed = confirm('Przejść do strony płatności?');
+                if (!proceed) return;
+                // Otwórz w nowej karcie
+                window.open(url, '_blank', 'noopener');
+            });
+        });
+    </script>
+</body>
+</html>
